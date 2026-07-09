@@ -58,10 +58,11 @@ jobs:
 
       - name: 02.sh - Verify Raw Locked Transaction Generation
         run: |
+          actual_sha() { printf '%s' "$1" | sha256sum | awk '{print $1}'; }
           chmod +x submission/02.sh
           TRANSACTION=$(submission/02.sh)
-          EXPECTED_OUTPUT=0200000002160ee5dd146316bb3400ede0d4ad512ab9c1ede486ab5a119a2ee9d4379fc1230000000000fdffffff160ee5dd146316bb3400ede0d4ad512ab9c1ede486ab5a119a2ee9d4379fc1230100000000fdffffff01002d31010000000017a91421ed90762e16eaaea188aae19142e5b25bf75d2387f9070000
-          if [[ "$TRANSACTION" == "$EXPECTED_OUTPUT" ]]; then
+          EXPECTED_SHA=023c8d8214a5ed26059f814acac6ff42962bb6c272c0222c9c0fed26f4726666
+          if [[ "$(actual_sha "$TRANSACTION")" == "$EXPECTED_SHA" ]]; then
             echo "✅ Success: Raw Locked Transaction generation passed!"
           else
             echo "❌ Error: Raw Locked Transaction generation failed!"
@@ -70,10 +71,11 @@ jobs:
       
       - name: 03.sh - Verify Raw Transaction With Data
         run: |
+          actual_sha() { printf '%s' "$1" | sha256sum | awk '{print $1}'; }
           chmod +x submission/03.sh
           TRANSACTION=$(submission/03.sh)
-          EXPECTED_OUTPUT=0200000002160ee5dd146316bb3400ede0d4ad512ab9c1ede486ab5a119a2ee9d4379fc1230000000000fdffffff160ee5dd146316bb3400ede0d4ad512ab9c1ede486ab5a119a2ee9d4379fc1230100000000fdffffff020000000000000000156a13627472757374206275696c6465722032303236002d31010000000017a91421ed90762e16eaaea188aae19142e5b25bf75d238700000000
-          if [[ "$TRANSACTION" == "$EXPECTED_OUTPUT" ]]; then
+          EXPECTED_SHA=e67b481d27df392231fc0a9fbf9960c77e1bc3d4bac2ddde1c88754b80cb9b84
+          if [[ "$(actual_sha "$TRANSACTION")" == "$EXPECTED_SHA" ]]; then
             echo "✅ Success: Raw Transaction With Data passed!"
           else
             echo "❌ Error: Raw Transaction With Data failed!"
@@ -82,10 +84,11 @@ jobs:
           
       - name: 04.sh - Verify Locking Script
         run: |
+          actual_sha() { printf '%s' "$1" | sha256sum | awk '{print $1}'; }
           chmod +x submission/04.sh
           SCRIPT=$(submission/04.sh)
-          EXPECTED_OUTPUT=76a914d5391484579a9760f87c9772035248325aabe01f88ac
-          if [[ "$SCRIPT" == "$EXPECTED_OUTPUT" ]]; then
+          EXPECTED_SHA=65419b19dd8b1d9133799db41ed6a69c84837b2ddb891afefb9c68b13dc0924f
+          if [[ "$(actual_sha "$SCRIPT")" == "$EXPECTED_SHA" ]]; then
             echo "✅ Success: Locking Script verification passed!"
           else
             echo "❌ Error: Locking Script verification failed!"
@@ -94,10 +97,11 @@ jobs:
       
       - name: 05.sh - Verify UnLocking Script
         run: |
+          actual_sha() { printf '%s' "$1" | sha256sum | awk '{print $1}'; }
           chmod +x submission/05.sh
           SCRIPT=$(submission/05.sh)
-          EXPECTED_OUTPUT=47304402207883e621fb279d18902986836e89ebe77c13b39e7c9141d0c8b81274a98245d502204d3ffc75ae16b8d3e5918f078075cb2afb180828d910f0feaf090cd74d805ca4012103fdee3ce1c3ca71b5e9eb846147ff5d26f499ef2f12f84b34de46b3dcf228df55
-          if [[ "$SCRIPT" == "$EXPECTED_OUTPUT" ]]; then
+          EXPECTED_SHA=40d6d968d67bba838c51d094e77d93a4ec88db441d170a8d4ed5d59b7d8072c8
+          if [[ "$(actual_sha "$SCRIPT")" == "$EXPECTED_SHA" ]]; then
             echo "✅ Success: UnLocking Script verification passed!"
           else
             echo "❌ Error: UnLocking Script verification failed!"
@@ -106,10 +110,11 @@ jobs:
 
       - name: 06.sh - Verify Witness Signature
         run: |
+          actual_sha() { printf '%s' "$1" | sha256sum | awk '{print $1}'; }
           chmod +x submission/06.sh
           SIGNATURE=$(submission/06.sh)
-          EXPECTED_OUTPUT=304502210091511bb7d1c9525c1efdc4f389cbdf47a413ca8b8854a2feb8a7552a60321334022062aa1c90da6d3215ea4a301031518ab4fe657b8d2065ba05ab1e64a6ec385bcf01
-          if [[ "$SIGNATURE" == "$EXPECTED_OUTPUT" ]]; then
+          EXPECTED_SHA=49b67ed3b9a875669b804b2bd687558e5072dd2c6e8baba0221095daa118294f
+          if [[ "$(actual_sha "$SIGNATURE")" == "$EXPECTED_SHA" ]]; then
             echo "✅ Success: Witness Signature verification passed!"
           else
             echo "❌ Error: Witness Signature verification failed!"
@@ -118,10 +123,11 @@ jobs:
 
       - name: 07.sh - Verify Public Key
         run: |
+          actual_sha() { printf '%s' "$1" | sha256sum | awk '{print $1}'; }
           chmod +x submission/07.sh
           PUBKEY=$(submission/07.sh)
-          EXPECTED_OUTPUT=032f306c639e6a76baf57524efe145f9a9b09d123a49cdd6aaf433cf7ab7b78979
-          if [[ "$PUBKEY" == "$EXPECTED_OUTPUT" ]]; then
+          EXPECTED_SHA=c5a98d0d78641209ff0ed6cda76efa2ab289be76cad11f5a3c04e29cc3c73b0f
+          if [[ "$(actual_sha "$PUBKEY")" == "$EXPECTED_SHA" ]]; then
             echo "✅ Success: Witness Public Key verification passed!"
           else
             echo "❌ Error: Witness Public Key verification failed!"
